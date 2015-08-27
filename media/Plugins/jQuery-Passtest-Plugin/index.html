@@ -1,0 +1,309 @@
+<html>
+<head>
+<title>jQuery Passtest Plugin Demo</title>
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="jquery-passtest-0.2-alpha.js"></script>
+<script>
+
+  // Tests of jQuery PassTest plugin
+  jQuery(document).ready(function() {
+  
+    //
+    // Plugin Core
+    //
+    
+    // Password policy
+    var options = {
+      "policy": {
+        "length_min"        : 8,    // Minimum password length [>=0]
+        "length_max"        : 100,  // Maximum password length [>=0]
+        "required_upper"    : 1,    // Count of required UPPERCASE characters [>=0]
+        "required_lower"    : 1,    // Count of required lowercase characters [>=0]
+        "required_digits"   : 1,    // Count of required numeric characters [>=0]
+        "required_special"  : 0     // Count of required special characters [>=0]
+      }
+    };
+    
+    // Disable "Confirm password" and "Submit" elements on start
+    jQuery("#password_confirm, #password_submit").attr("disabled","disabled");
+  
+    // Initialize plugin
+    jQuery("#password").passtest(options);
+    
+    // Bind passtest event on pssword field
+    jQuery("#password").bind("passtest", function() {
+    
+      var status = $(this).passtest().status;
+      
+      console.log('passtest');
+    
+      // Disable "Confirm password" and "Submit" elements on password change
+      jQuery("#password_confirm, #password_submit").attr("disabled","disabled");
+      
+      // Disable "Confirm password" and "Submit" elements on password change
+      jQuery("#password_length > .num").text(status.len);
+      
+      // Password current status info box
+      jQuery("#password_score").text("Score: "+status.score);
+      
+      // Set password strength bar
+      //jQuery("#password_strength").find(".bar").css({"width":status.score+"%"});
+      jQuery("#password_strength").find(".bar").stop().animate({"width":status.score+"%"});
+      
+      // Set password score percent
+      jQuery("#score_percent").text("strong accurate is: "+status.score+"%");
+      
+      // Password actions depends on returned status message
+      switch(status.message){
+      case "null_password":
+      
+        jQuery("#password_status_message")
+          .text("Null pssword given!");
+        break;
+        
+      case "too_short":
+        
+        jQuery("#password_status_message")
+          .text("Your password is too short, min length is "+$(this).passtest().settings.policy.length_min+"!");
+        break;
+        
+      case "too_long":
+        
+        jQuery("#password_status_message")
+          .text("Your password is too long, max length is "+$(this).passtest().settings.policy.length_max+"!");
+        break;
+        
+      case "unwanted_characters":
+        
+        jQuery("#password_status_message")
+          .text("Your password have unwanted characters!");
+        break;
+        
+      case "require_uppercase":
+        
+        jQuery("#password_status_message")
+          .text("Your password require uppercase characters!");
+        break;
+        
+      case "require_lowercase":
+      
+        jQuery("#password_status_message")
+          .text("Your password require lowercase characters!");
+        break;
+        
+      case "require_digits":
+      
+        jQuery("#password_status_message")
+          .text("Your password require digits characters!");
+        break;
+        
+      case "require_special_characters":
+      
+        jQuery("#password_status_message")
+          .text("Your password require specials characters: "+$(this).passtest().settings.accepted.chars+"!");
+        break;
+        
+      case "ok":
+      
+        jQuery("#password_status_message")
+          .text("Your password is O.K.");
+        
+        // Disable "Confirm password" and "Submit" when password is OK
+        jQuery("#password_confirm, #password_submit").removeAttr("disabled");
+        break;
+        
+      default:
+      
+        $(status).text("Unknown pssword status");
+        break;
+      }
+    });
+    
+    //
+    // Plugin Options Window
+    //
+    
+    // Update plugin options values
+    var policy = jQuery("#password").passtest().settings.policy;
+    for (var key in policy){
+      jQuery("input[name="+key+"]").val(eval("policy."+key));
+    }
+    
+    // Update plugin policy based on given options
+    jQuery("#update_settings_button").bind("click", function() {
+      var options = {
+        "policy" : {
+          "length_min"   : parseInt(jQuery("input[name=length_min]").val()),
+          "length_max"   : parseInt(jQuery("input[name=length_max]").val()),
+          "required_upper" : parseInt(jQuery("input[name=required_upper]").val()),
+          "required_lower" : parseInt(jQuery("input[name=required_lower]").val()),
+          "required_digits"   : parseInt(jQuery("input[name=required_digits]").val()),
+          "required_special"  : parseInt(jQuery("input[name=required_special]").val())
+        }
+      };
+      jQuery("#password").passtest(options);
+    });
+  });
+  
+</script>
+<style>
+  body {
+    font-family: sans-serif;
+  }
+  .t {
+    display: table;
+  }
+  .tr {
+    display: table-row;
+  }
+  .th {
+    display: table-cell;
+    padding: 5px;
+    font-weight: bold;
+  }
+  .td {
+    display: table-cell;
+    padding: 5px;
+  }
+  .fs {
+    margin: 20px 0px;
+    padding: 10px;
+    display: inline-block;
+    float: left;
+    clear: both;
+    border: solid 1px black;
+    border-radius: 5px;
+  }
+  .fs legend {
+    font-weight: bold;
+  }
+  #password_strength {
+    width: 200px;
+    background-color: #eee;
+    border: solid 1px #000;
+  }
+  #password_strength .bar {
+    height: 5px;
+    background-color: #000000;
+    width: 0%;
+  }
+  #password_length {
+    font-size: 10px;
+    color: #888;
+  }
+</style>
+</head>
+<body>
+<div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="http://www.jqueryscript.net/form/Animated-Password-Strength-Indicator-with-jQuery-Passtest-Plugin.html">Download This Plugin</a></li>
+<li><a href="http://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+<h1 style="margin-top:150px;">jQuery Passtest Plugin Demo</h1>
+
+<form>
+
+<!-- Password form : begin -->
+<div class="t">
+  <div class="tr">
+    <div class="th" style="text-align: right;">Password:</div>
+    <div class="td">
+      <input type="text" name="password" id="password" /><br/>
+      <span id="password_length">length: <span class="num">0</span></span>
+    </div>
+  <div class="td"><div id="password_strength"><div class="bar"></div></div></div>
+    <div class="td"><div id="score_percent"></div></div>
+  </div>
+  <div class="tr">
+    <div class="th" style="text-align: right;">Confirm password:</div>
+    <div class="td"><input type="password" name="password_confirm" id="password_confirm" /></div>
+    <div class="td"></div>
+    <div class="td"></div>
+  </div>
+  <div class="tr">
+    <div class="td"></div>
+    <div class="td"><input type="button" id="password_submit" value="Submit password" /></div>
+    <div class="td"></div>
+    <div class="td"></div>
+  </div>
+</div>
+<!-- Password form : end -->
+
+<!-- PassTest message : begin -->
+<fieldset class="fs">
+  <legend>PassTest result</legend>
+  <div id="password_status_message">Please start typying your password...</div>
+  <div id="password_score"></div>
+</fieldset>
+<!-- PassTest message : end -->
+
+<!-- PassTest plugin settings : begin -->
+<fieldset class="fs">
+  <legend>Plugin options</legend>
+  <div class="t">
+    <div class="tr">
+      <div class="td">Minimum password length:</div>
+      <div class="td"><input type="text" name="length_min"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Maximum password length:</div>
+      <div class="td"><input type="text" name="length_max"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Required uppercase:</div>
+      <div class="td"><input type="text" name="required_upper"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Required lowercase:</div>
+      <div class="td"><input type="text" name="required_lower"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Required numbers:</div>
+      <div class="td"><input type="text" name="required_digits"></div>
+    </div>
+    <div class="tr">
+      <div class="td">Required specials:</div>
+      <div class="td"><input type="text" name="required_special"></div>
+    </div>
+    <div class="tr">
+      <div class="td"></div>
+      <div class="td"><input type="button" id="update_settings_button" value="Update requirements"></div>
+    </div>
+  </div>
+</fieldset>
+<!-- PassTest plugin settings : end -->
+
+</form>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

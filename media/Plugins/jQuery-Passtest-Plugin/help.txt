@@ -1,0 +1,11 @@
+jQuery PassTest plugin
+
+Please check demo HTML files for sample usage of PassTest jQuery plugin inside "demo" folder:
+
+1) demo-basic_usage.html
+2) demo-advanced_usage.html
+
+Currently I don't have a lot of time to write detailed instructions.
+I promise to create it very soon. ;-)
+
+Enjoy!
