@@ -88,6 +88,8 @@
 		$('#userpic').blur(function(){
 			document.body.appendChild(img);
 		});
+		
+		document.getElementById("firstname").focus();
 			
 	} );
 	

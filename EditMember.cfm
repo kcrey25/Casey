@@ -3,7 +3,6 @@
 <cfinclude template="OldPassCheck.cfc" />
 
 <script type="text/javascript" src="/CFIDE/scripts/wddx.js"></script>
-<script src="media/ckeditor/ckeditor.js"></script>
 
 <cfquery
 	username="#request.myDBUserName#"

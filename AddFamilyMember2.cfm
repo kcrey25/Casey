@@ -13,6 +13,14 @@
 		username="#request.myDBUserName#"
 		password="#request.myDBPassword#"
 		datasource="#request.myDSN#"
+		name="GetOriginalMember">
+		SELECT * FROM UserMain WHERE USERNAME = '#Session.UName#'
+</cfquery>
+
+<cfquery
+		username="#request.myDBUserName#"
+		password="#request.myDBPassword#"
+		datasource="#request.myDSN#"
 		name="GetParents">
 		SELECT * FROM Family WHERE CHILDREN_GROUP = '#url.id#'
 </cfquery>
@@ -28,6 +36,14 @@
 		nameConflict="MakeUnique" 
 		accept="image/*" 
 		result="jason"
+	>
+	<cfset currentDirectory = currentDirectory & jason.serverFile>
+	<cfset FileDir = getDirectoryFromPath( getCurrentTemplatePath() ) />
+	<cfset FileDir = FileDir & "User-Files\" & GetOriginalMember.ID & "\">
+	<cffile 
+		action="copy" 
+		source="#currentDirectory#"
+		destination="#FileDir#"
 	>
 </cfif>
 <!--- End of insert File --->

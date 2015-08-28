@@ -43,6 +43,7 @@
 	var table;
 	$(document).ready(function() {
 		table = $("#tblFiles").DataTable({
+		"order": [[ 1, "asc" ]],
 		"scrollY": "400px",
 		renderer: 'bootstrap',
 		tableTools: {
@@ -52,7 +53,7 @@
 		"bProcessing": false,
 		"bServerSide": false,
 		"sAjaxSource": "GetMyFiles.cfm",
-		"bStateSave": true,
+		//"bStateSave": true,
 		"aoColumns": [
 			{ "mDataProp": "NUM" },
 			{ "mDataProp": "FILENAME" },
