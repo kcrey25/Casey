@@ -2,7 +2,7 @@
 <cfset request.StartTime= GetTickCount()>
 
 <cfapplication
-    name="CFWheels"
+    name="Casey"
     sessionmanagement="Yes"
     clientmanagement="Yes"
     applicationtimeout= #CreateTimeSpan(0,2,0,0)#
@@ -18,7 +18,7 @@
 <cfscript>
     request.myDBUserName = "";
     request.myDBPassword = "";
-    request.myDSN = "CFWheels";
+    request.myDSN = "Casey";
     request.shimWidth = "20";
 </cfscript>
 
@@ -27,16 +27,8 @@
 
 
 <cfparam name="Session.Csch" default="80">
-<cfparam name="Session.Curyear" default="2015">
 
-<cfset STATUS_NAMES=["Active", "Resolved"]>
-<cfset RESOLVE_NAMES=["Acceptable Threshold", "Eliminated/Trapped", "Cleaning or Sanitation", "Eliminated Shelter", "Exclusion by Facility Modification", "Landscaping Modification", "Other"]>
-<cfset POSITION_NAMES=["Student", "Teacher", "ESP", "Admin", "IPM Site Coordinator", "IPM Administrator"]>
-
-
-<cfset LOC_NAMES=["Admin", "Teacher", "ESP", "Student", "IPM Site Coordinator"]>
-
-<cfinclude template="../common/AntiSQLi.cfm" />
+<cfinclude template="media/AntiSQLi.cfm" />
 
 
 <!--- The following are notes on how the database is set up 
