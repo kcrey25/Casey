@@ -20,7 +20,7 @@
 	<form class="form-horizontal" id="EditForm" name="EditForm" method="post" enctype="multipart/form-data" action="EditMember2.cfm?id=#url.id#">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="text-center"><cfoutput>Add Family Member</cfoutput></h2>
+				<h2 class="text-center"><cfoutput>Edit Family Member</cfoutput></h2>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
@@ -42,7 +42,7 @@
 							<label class="control-label" style="text-align:center" id="fileText" for="pic">
 								Upload Your Profile Picture.
 							</label>
-							<input required type="file" name="pic" id="pic" accept="image/*" onchange="readURL(this);">
+							<input type="file" name="pic" id="pic" accept="image/*" onchange="readURL(this);">
 						</div>
 						<div class = "col-sm-3">
 							<div id="userpic">

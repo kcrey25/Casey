@@ -66,7 +66,7 @@
 <cffunction name="GettheFile">
 	<cfset currentDirectory = getDirectoryFromPath( getCurrentTemplatePath() ) />
 	<cfset currentDirectory = currentDirectory & "User-Files\" & GetUserID.ID>
-	<cfset thelink = "http://localhost:8500/Wheels_test/User-Files/" & GetUserID.ID>
+	<cfset thelink = "http://localhost:8500/Casey/User-Files/" & GetUserID.ID>
 
 	<cfdirectory action="list" directory="#currentDirectory#" name="listRoot">
 	<cfsavecontent variable="files">
