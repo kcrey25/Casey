@@ -93,7 +93,8 @@
 				<b>#famName#</b><br><br>
 			<div id="primaryUser" class="col-sm-12 text-center">
 				<a href="MyFamily.cfm?id=#newUser.ID#"><img src="User-Uploads/#newUser.PIC#" height="200px"></a>
-			</div>
+			</div><br>
+			<button id="editbutton" name="editbutton" class="btn btn-success" formaction="EditMember.cfm?id=#newid#">Edit</button>
 		</cfoutput>
 	</cfif>
 </cffunction>
