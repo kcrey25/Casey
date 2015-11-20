@@ -26,7 +26,7 @@
 <cfmail	from="casey@christensen.org"
 			to="casey.christensen2@canyonsdistrict.org"
 			subject="New Site User!"
-			server = "email.canyonsdistrict.org"
+			server = ""
 			type = "HTML">
 	<cfoutput>
 		#Session.Name# created a new account on #DateFormat(now(), "long")# at #TimeFormat(now())#. Please review his/her account.
